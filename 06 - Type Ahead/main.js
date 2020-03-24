@@ -14,6 +14,7 @@ const input = document.querySelector("input");
 input.addEventListener("change", searchMatch);
 input.addEventListener("keyup", searchMatch);
 
+// Searching the matching cities or states, and calling display function
 function searchMatch() {
   const matched = cities.filter(el => {
     return (
@@ -24,10 +25,7 @@ function searchMatch() {
   displayMatched(matched, this.value);
 }
 
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
+// Displaying the result
 function displayMatched(matched, input) {
   const html = matched
     .map(el => {
@@ -48,4 +46,8 @@ function displayMatched(matched, input) {
     .join("");
 
   document.querySelector(".suggestions").innerHTML = html;
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
