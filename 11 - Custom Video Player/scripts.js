@@ -7,7 +7,7 @@ const progressFilled = document.querySelector(".progress__filled");
 const sliders = document.querySelectorAll(".player__slider");
 const skipButtons = document.querySelectorAll(".player__button[data-skip]");
 
-// Playing or stopping video
+// Functions
 function playControl(e) {
   if (video.paused === true) {
     video.play();
@@ -24,7 +24,7 @@ function updateProgress() {
 }
 
 function jumpProgress(e) {
-  const skippingTo = video.duration * (e.offsetX / this.offsetWidth);
+  const skippingTo = video.duration * (e.offsetX / progress.offsetWidth);
   video.currentTime = skippingTo;
 }
 
@@ -33,7 +33,7 @@ function sliderEffect() {
 }
 
 function skipProgress() {
-  video.currentTime += parseInt(this.dataset.skip);
+  video.currentTime += parseFloat(this.dataset.skip);
 }
 
 // Eventlistner
@@ -41,7 +41,6 @@ video.addEventListener("click", playControl);
 playButton.addEventListener("click", playControl);
 
 video.addEventListener("timeupdate", updateProgress);
-progress.addEventListener("click", jumpProgress);
 
 sliders.forEach(slider => {
   slider.addEventListener("click", sliderEffect);
@@ -49,4 +48,14 @@ sliders.forEach(slider => {
 
 skipButtons.forEach(skip => {
   skip.addEventListener("click", skipProgress);
+});
+
+let mousedown = false;
+progress.addEventListener("click", jumpProgress);
+progress.addEventListener("mousemove", e => mousedown && jumpProgress(e));
+progress.addEventListener("mousedown", () => {
+  mousedown = true;
+});
+progress.addEventListener("mouseup", () => {
+  mousedown = false;
 });
