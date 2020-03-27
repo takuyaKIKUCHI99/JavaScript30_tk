@@ -2,7 +2,8 @@
 const player = document.querySelector(".player");
 const video = document.querySelector("video");
 const playButton = document.querySelector(".player__button");
-const progressBar = document.querySelector(".progress__filled");
+const progress = document.querySelector(".progress");
+const progressFilled = document.querySelector(".progress__filled");
 
 // Playing or stopping video
 function playControl(e) {
@@ -17,7 +18,12 @@ function playControl(e) {
 
 function updateProgress() {
   const percentage = (video.currentTime / video.duration) * 100;
-  progressBar.style.flexBasis = `${percentage}%`;
+  progressFilled.style.flexBasis = `${percentage}%`;
+}
+
+function skipProgress(e) {
+  const skippingTo = video.duration * (e.offsetX / this.offsetWidth);
+  video.currentTime = skippingTo;
 }
 
 // Eventlistner
@@ -25,3 +31,4 @@ video.addEventListener("click", playControl);
 playButton.addEventListener("click", playControl);
 
 video.addEventListener("timeupdate", updateProgress);
+progress.addEventListener("click", skipProgress);
