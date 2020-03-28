@@ -1,12 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Key Detection</title>
-  <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
-</head>
-<body>
-<script>
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Key Detection</title>
+    <script
+      type="text/javascript"
+      src="https://www.cornify.com/js/cornify.js"
+    ></script>
+  </head>
+  <body>
+    <div class="display" style="font-size: 5rem;"></div>
+    <script>
+      const secretWord = "tk";
+      const clearWord = "clear";
+      const inputsHolder = [];
+      const display = document.querySelector(".display");
+
+      function updateDisplay(key) {
+        if (key === "Enter") {
+          display.insertAdjacentHTML("beforeend", "<br>");
+          input = "";
+        } else {
+          display.insertAdjacentHTML("beforeend", key);
+        }
+      }
+
+      window.addEventListener("keyup", e => {
+        inputsHolder.push(e.key.toLowerCase());
+        updateDisplay(e.key);
+        inputsHolder.splice(
+          -secretWord - 1,
+          inputsHolder.length - secretWord.length
+        );
+        if (inputsHolder.join("").includes(secretWord)) cornify_add();
+      });
+    </script>
+  </body>
 </html>
