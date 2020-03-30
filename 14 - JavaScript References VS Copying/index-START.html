@@ -1,56 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>JS Reference VS Copy</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Reference VS Copy</title>
+  </head>
+  <body>
+    <script>
+      // start with strings, numbers and booleans
+      // -------- string => copy ------------
+      // const string = "string";
+      // let stringCopy = string;
+      // stringCopy = "changed";
+      // console.log(string);
+      // console.log(stringCopy);
 
-  <script>
-    // start with strings, numbers and booleans
+      // -------- number => copy ------------
+      // const number = 1;
+      // let numberCopy = number;
+      // numberCopy = 2;
+      // console.log(number);
+      // console.log(numberCopy);
 
-    // Let's say we have an array
-    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+      // -------- boolean => copy ------------
+      // const boolean = true;
+      // let booleanCopy = boolean;
+      // booleanCopy = false;
+      // console.log(boolean);
+      // console.log(booleanCopy);
 
-    // and we want to make a copy of it.
+      // --------- array => reference ------------
+      // const players = ["Wes", "Sarah", "Ryan", "Poppy"];
+      // let playersCopy = players;
+      // playersCopy[3] = "Changed";
+      // console.log(`original: ${players}`);
+      // console.log(`copy modified: ${playersCopy}`);
 
-    // You might think we can just do something like this:
+      // => work around
+      // let playersCopy = [...players];
+      // let playersCopy = players.slice();
+      // let playersCopy = [].concat(players);
+      // let playersCopy = Array.from(players);
 
-    // however what happens when we update that array?
+      // playersCopy[3] = "Changed";
+      // console.log(`original: ${players}`);
+      // console.log(`copy modified: ${playersCopy}`);
 
-    // now here is the problem!
+      // ---------- object => reference -------------
+      const person = {
+        name: "Wes Bos",
+        age: 80,
+        social: {
+          twitter: "@wesbos",
+          facebook: "wesbos.developer"
+        }
+      };
+      // let personCopy = person;
+      // personCopy.age = 99;
+      // console.log(person);
+      // console.log(personCopy);
 
-    // oh no - we have edited the original array too!
-
-    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
-
-    // So, how do we fix this? We take a copy instead!
-
-    // one way
-
-    // or create a new array and concat the old one in
-
-    // or use the new ES6 Spread
-
-    // now when we update it, the original one isn't changed
-
-    // The same thing goes for objects, let's say we have a person object
-
-    // with Objects
-    const person = {
-      name: 'Wes Bos',
-      age: 80
-    };
-
-    // and think we make a copy:
-
-    // how do we take a copy instead?
-
-    // We will hopefully soon see the object ...spread
-
-    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
-
-  </script>
-
-</body>
+      // => work around
+      // let personCopy = Object.assign({}, person);
+      // let personCopy = JSON.parse(JSON.stringify(person));
+      // personCopy.age = 99;
+      // personCopy.social.facebook = "FB sucks";
+      // console.log(person);
+      // console.log(personCopy);
+    </script>
+  </body>
 </html>
