@@ -10,6 +10,7 @@ const displayItems = (items = [], itemsList) => {
         item.done ? "checked" : ""
       } />
       <label for="item${i}">${item.name}</label>
+      <button class="delete-item">X</button>
     </li>`;
     })
     .join("");
@@ -33,8 +34,6 @@ const addToItems = e => {
 };
 
 const doneUpdate = e => {
-  // Ignoring other than checkbox
-  if (!e.target.matches("input")) return;
   // Getting index from dataset
   const index = e.target.dataset.index;
   items[index].done = !items[index].done;
@@ -42,8 +41,23 @@ const doneUpdate = e => {
   displayItems(items, itemsList);
 };
 
+const deleteItem = e => {
+  const index = e.target.parentNode.querySelector("input").dataset.index;
+  items.splice(index, 1);
+  storeInLocalStorage();
+  displayItems(items, itemsList);
+};
+
+const classifyAction = e => {
+  if (e.target.matches("input")) {
+    doneUpdate(e);
+  } else if (e.target.matches("button")) {
+    deleteItem(e);
+  }
+};
+
 // As loading
 displayItems(items, itemsList);
 // Eventlistener
 addItems.addEventListener("submit", addToItems);
-itemsList.addEventListener("click", doneUpdate);
+itemsList.addEventListener("click", classifyAction);
