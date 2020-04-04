@@ -271,19 +271,20 @@
     </div>
 
     <script>
+      const nav = document.querySelector("#main");
+      let topOfNav = nav.offsetTop;
       // Check scrollY and make the nav sticky-top when hit the nav
       const stickyNav = () => {
-        const nav = document.getElementById("main");
-        if (nav.offsetTop >= window.scrollY) {
-          nav.classList.add("fixed-nav");
+        if (topOfNav <= window.scrollY) {
+          document.body.style.paddingTop = `${nav.offsetHeight}px`;
+          document.body.classList.add("fixed-nav");
         } else {
-          nav.classList.remove("fixed-nav");
+          document.body.classList.remove("fixed-nav");
+          document.body.style.paddingTop = "0px";
         }
       };
 
-      // Listen to scroll
       window.addEventListener("scroll", stickyNav);
-      // 2. logo slide-in(transform?)
     </script>
   </body>
 </html>

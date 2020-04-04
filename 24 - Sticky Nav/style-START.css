@@ -89,7 +89,11 @@ nav a {
   text-transform: uppercase;
 }
 
-.fixed-nav {
-  position: sticky;
-  top: 0;
+body.fixed-nav nav {
+  position: fixed;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.fixed-nav li.logo {
+  max-width: 500px;
 }
