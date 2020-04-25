@@ -42,7 +42,17 @@
 
 <button></button>
 <script>
+  const boxes = document.querySelectorAll('div')
 
+  function consoleClassName(e) {
+    console.log(this.classList.value)
+    e.stopPropagation() // Stop bubbling
+  }
+
+  boxes.forEach(box => box.addEventListener('click', consoleClassName, {
+    capture: false, // Reverse the direction to top down
+    once: false // Fire the event only once and block from second or more
+  }))
 </script>
 </body>
 </html>
