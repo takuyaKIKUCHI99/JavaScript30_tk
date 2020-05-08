@@ -43,7 +43,7 @@
       slider.addEventListener("mousedown", (e) => {
         isDown = true;
         slider.classList.add("active"); // Nice effect
-        startX = e.pageX - slider.offsetLeft;
+        startX = e.pageX - slider.offsetLeft; // Subtracting margin of slider
         scrollLeft = slider.scrollLeft;
       });
 
@@ -61,8 +61,12 @@
         if (!isDown) return; // Stop this event if mouth is not down
         e.preventDefault();
         const mouthMoveX = e.pageX - slider.offsetLeft;
+
+        // walk: + to the right, - to the left
+        // Speeding up with * 3
         const walk = (mouthMoveX - startX) * 3;
-        console.log(walk);
+
+        // Scrolling to the left makes slider.scrollLeft higher scale of - number
         slider.scrollLeft = scrollLeft - walk;
       });
     </script>
