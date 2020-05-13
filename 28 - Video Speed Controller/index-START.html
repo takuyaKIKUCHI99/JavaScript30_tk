@@ -1,20 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Video Speed Scrubber</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <div class="wrapper">
-    <video class="flex" width="765" height="430" src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" loop controls></video>
-    <div class="speed">
-      <div class="speed-bar">1×</div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Video Speed Scrubber</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <video
+        class="flex"
+        width="765"
+        height="430"
+        src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"
+        loop
+        controls
+      ></video>
+      <div class="speed">
+        <div class="speed-bar">1×</div>
+      </div>
     </div>
-  </div>
 
-<script>
-</script>
-</body>
+    <script>
+      const speedBar = document.querySelector(".speed");
+      const speedMeter = document.querySelector(".speed-bar");
+      const video = document.querySelector(".flex");
+
+      const changeSpeed = (e) => {
+        const mousePosition = e.pageY - speedBar.offsetTop;
+        const speedRate = mousePosition / speedBar.offsetHeight;
+        const min = 0.4;
+        const max = 4;
+        const percent = Math.round(speedRate * 100) + "%";
+        const playbackRate = speedRate * (max - min) + min;
+
+        // Adjust speed-bar height
+        speedMeter.style.height = percent;
+        // Change speed display in the speed-bar
+        speedMeter.textContent = playbackRate.toFixed(2) + "×";
+        // Adjust video speed
+        video.playbackRate = playbackRate;
+      };
+
+      speedBar.addEventListener("mousemove", changeSpeed);
+    </script>
+  </body>
 </html>
